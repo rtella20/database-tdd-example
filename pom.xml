@@ -14,11 +14,13 @@
     <url>http://projects.spring.io/spring-boot/</url>
 
     <dependencies>
+
         <!-- Compile -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
         </dependency>
+
         <!-- BoneCP -->
         <dependency>
             <groupId>com.jolbox</groupId>

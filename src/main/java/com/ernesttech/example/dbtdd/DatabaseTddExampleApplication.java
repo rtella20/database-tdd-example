@@ -36,7 +36,6 @@ public class DatabaseTddExampleApplication {
     private static final String PROPERTY_NAME_DB_USERNAME = "db.username";
 
 
-
     @Bean(destroyMethod = "close", name = "dataSource")
     @Primary
     public DataSource dataSource() {
@@ -55,12 +54,7 @@ public class DatabaseTddExampleApplication {
         DefaultConfiguration jooqConfiguration = new DefaultConfiguration();
 
         jooqConfiguration.set(connectionProvider());
-//        jooqConfiguration.set(new DefaultExecuteListenerProvider(
-//                jooqToSpringExceptionTransformer()
-//        ));
-
-        SQLDialect dialect = SQLDialect.valueOf(SQLDialect.POSTGRES.toString());
-        jooqConfiguration.set(dialect);
+        jooqConfiguration.set(SQLDialect.POSTGRES);
 
         return jooqConfiguration;
     }
@@ -84,11 +78,6 @@ public class DatabaseTddExampleApplication {
     public DataSourceConnectionProvider connectionProvider() {
         return new DataSourceConnectionProvider(transactionAwareDataSource());
     }
-
-//    @Bean(name = "jooqExceptionTransformer")
-//    public JOOQToSpringExceptionTransformer jooqToSpringExceptionTransformer() {
-//        return new JOOQToSpringExceptionTransformer();
-//    }
 
     @Bean(name = "defDSLContext")
     public DefaultDSLContext dsl() {
