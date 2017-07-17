@@ -10,9 +10,9 @@ import static com.ernesttech.example.dbtdd.domain.jooq.generated.Tables.TESTS;
 
 
 @Repository
-public class TestManager extends AbstractJooqManager<TestsRecord> {
+public class TestsManager extends AbstractJooqManager<TestsRecord> {
 
-    List<TestsRecord> findAllTests() {
+    public List<TestsRecord> findAllTests() {
         return context
                 .select()
                 .from(TESTS)
