@@ -35,7 +35,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Tests extends TableImpl<TestsRecord> {
 
-    private static final long serialVersionUID = -1630133590;
+    private static final long serialVersionUID = -640334866;
 
     /**
      * The reference instance of <code>public.tests</code>
@@ -69,6 +69,11 @@ public class Tests extends TableImpl<TestsRecord> {
      * The column <code>public.tests.expected</code>.
      */
     public final TableField<TestsRecord, String> EXPECTED = createField("expected", org.jooq.impl.SQLDataType.CLOB, this, "");
+
+    /**
+     * The column <code>public.tests.failure_message</code>.
+     */
+    public final TableField<TestsRecord, String> FAILURE_MESSAGE = createField("failure_message", org.jooq.impl.SQLDataType.CLOB, this, "");
 
     /**
      * Create a <code>public.tests</code> table reference
