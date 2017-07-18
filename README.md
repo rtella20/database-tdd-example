@@ -15,7 +15,8 @@ Default username is `postgres`
 
 ### Create tests table
 
-`create table tests
+```sql
+create table tests
  (
  	id uuid not null
  		constraint tests_pkey
@@ -25,7 +26,8 @@ Default username is `postgres`
  	expected text,
  	failure_message text
  )
- ;`
+ ;
+```
  
 ### Insert tests into table 
 
