@@ -23,4 +23,5 @@ public class TestsManager extends AbstractJooqManager<TestsRecord> {
     public Table getTable() {
         return TESTS;
     }
+
 }

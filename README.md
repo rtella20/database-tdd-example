@@ -13,3 +13,19 @@ just one simple way to develop Databases using a test-driven approach.
 
 Default username is `postgres`
 
+### Create tests table
+
+`create table tests
+ (
+ 	id uuid not null
+ 		constraint tests_pkey
+ 			primary key,
+ 	name text,
+ 	test text,
+ 	expected text,
+ 	failure_message text
+ )
+ ;`
+ 
+### Insert tests into table 
+
