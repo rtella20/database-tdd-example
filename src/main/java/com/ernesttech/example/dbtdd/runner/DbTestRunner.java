@@ -1,28 +1,21 @@
-package com.ernesttech.example.dbtdd;
+package com.ernesttech.example.dbtdd.runner;
 
 import com.ernesttech.example.dbtdd.domain.jooq.generated.tables.records.TestsRecord;
 import com.ernesttech.example.dbtdd.managers.TestQueryManager;
 import com.ernesttech.example.dbtdd.managers.TestsManager;
 import org.jooq.Record;
 import org.jooq.Result;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
-public class TestRunner {
+@Component
+public class DbTestRunner {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(TestRunner.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(DbTestRunner.class);
 
     @Autowired
     private TestsManager testManager;
@@ -30,33 +23,20 @@ public class TestRunner {
     @Autowired
     private TestQueryManager testQueryManager;
 
-    private static int successCount = 0;
-    private static int failureCount = 0;
-    private static int testRunCount = 0;
 
-    private List<TestsRecord> testCases;
+    public boolean run() {
 
-    @Before
-    public void setUp() throws Exception {
-        if (testCases == null) {
-            testCases = testManager.findAllTests();
-        }
+        List<TestsRecord> testCases = testManager.findAllTests();
+
+        return executeDbTests(testCases);
+
     }
 
-    @After
-    public void tearDown() throws Exception {
-    }
+    private boolean executeDbTests(final List<TestsRecord> testCases) {
 
-    @AfterClass
-    public static void afterClass() {
-        LOGGER.info("\n\nSTATUS: {}\n\nTotal Tests Run: {}\n" +
-                        "Successful tests: {}\n" +
-                        "Failed tests: {}\n\n", failureCount == 0 ? "Success" : "Failure",
-                testRunCount, successCount, failureCount);
-    }
-
-    @Test
-    public void runTests() {
+        int successCount = 0;
+        int failureCount = 0;
+        int testRunCount = 0;
 
         for (TestsRecord testsRecord : testCases) {
             testRunCount++;
@@ -86,6 +66,11 @@ public class TestRunner {
 
         }
 
+        printStats(successCount, failureCount, testRunCount);
+
+
+        return failureCount == 0;
+
     }
 
     private String buildFailureMessage(final List<?> record, final TestsRecord expected, final Exception exception) {
@@ -105,5 +90,13 @@ public class TestRunner {
                 .append("\n\n")
                 .toString();
     }
+
+    private void printStats(final int successCount, final int failureCount, final int testRunCount) {
+        LOGGER.info("\n\nSTATUS: {}\n\nTotal Tests Run: {}\n" +
+                        "Successful tests: {}\n" +
+                        "Failed tests: {}\n\n", failureCount == 0 ? "Success" : "Failure",
+                testRunCount, successCount, failureCount);
+    }
+
 
 }
