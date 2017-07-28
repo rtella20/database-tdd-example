@@ -39,6 +39,7 @@ public class DbTestRunner {
         int testRunCount = 0;
 
         for (TestsRecord testsRecord : testCases) {
+
             testRunCount++;
 
             Result<Record> results = null;
@@ -46,11 +47,7 @@ public class DbTestRunner {
             try {
                 results = testQueryManager.executeQuery(testsRecord.getTest());
 
-                String expected = String.valueOf(testsRecord.getExpected());
-
-                String result = String.valueOf(results.getValues(0).get(0));
-
-                if (expected.equalsIgnoreCase(result)) {
+                if (isExpectedEqualToActual(testsRecord, results)) {
                     successCount++;
                 } else {
                     LOGGER.error(buildFailureMessage(results, testsRecord, null));
@@ -71,6 +68,18 @@ public class DbTestRunner {
 
         return failureCount == 0;
 
+    }
+
+    private boolean isExpectedEqualToActual(TestsRecord testsRecord, Result<Record> results) {
+        return getExpectedResult(testsRecord).equalsIgnoreCase(getActualResult(results));
+    }
+
+    private String getActualResult(final Result<Record> results) {
+        return String.valueOf(results.getValues(0).get(0));
+    }
+
+    private String getExpectedResult(final TestsRecord testsRecord) {
+        return String.valueOf(testsRecord.getExpected());
     }
 
     private String buildFailureMessage(final List<?> record, final TestsRecord expected, final Exception exception) {

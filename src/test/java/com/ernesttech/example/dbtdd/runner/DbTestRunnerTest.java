@@ -3,6 +3,7 @@ package com.ernesttech.example.dbtdd.runner;
 import com.ernesttech.example.dbtdd.domain.jooq.generated.tables.records.TestsRecord;
 import com.ernesttech.example.dbtdd.managers.TestQueryManager;
 import com.ernesttech.example.dbtdd.managers.TestsManager;
+import org.jooq.Result;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -27,6 +28,9 @@ public class DbTestRunnerTest {
 
     @Mock
     private TestQueryManager testQueryManager;
+
+    @Mock
+    private Result result;
 
     @InjectMocks
     private DbTestRunner dbTestRunner;
@@ -59,6 +63,58 @@ public class DbTestRunnerTest {
 
         when(testManager.findAllTests())
                 .thenReturn(fakeTestList);
+
+        assertThat(dbTestRunner.run(), is(false));
+    }
+
+    @Test
+    public void testQueryReturningInteger0PassesWhenExpectedIsString0() {
+        TestsRecord testsRecord = new TestsRecord();
+        testsRecord.setExpected("0");
+
+        List<TestsRecord> records = new ArrayList<>();
+        records.add(testsRecord);
+
+        when(testManager.findAllTests())
+                .thenReturn(records);
+
+
+        List<Integer> values = new ArrayList<>();
+        values.add(0);
+
+        result.set(0, values);
+        when(result.getValues(0))
+                .thenReturn(values);
+
+        when(testQueryManager.executeQuery(anyString()))
+                .thenReturn(result);
+
+
+        assertThat(dbTestRunner.run(), is(true));
+
+    }
+
+    @Test
+    public void testQueryBobNotEqualToDole() {
+        TestsRecord testsRecord = new TestsRecord();
+        testsRecord.setExpected("Bob");
+
+        List<TestsRecord> records = new ArrayList<>();
+        records.add(testsRecord);
+
+        when(testManager.findAllTests())
+                .thenReturn(records);
+
+        List<String> values = new ArrayList<>();
+        values.add("Dole");
+
+        result.set(0, values);
+        when(result.getValues(0))
+                .thenReturn(values);
+
+        when(testQueryManager.executeQuery(anyString()))
+                .thenReturn(result);
+
 
         assertThat(dbTestRunner.run(), is(false));
     }
