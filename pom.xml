@@ -19,6 +19,13 @@
         <liquibase.version>3.5.3</liquibase.version>
     </properties>
 
+    <repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
+
     <dependencies>
 
         <!-- Compile -->
@@ -72,12 +79,52 @@
         </dependency>
         <!-- /Liquibase -->
 
+
         <!-- Test -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <!-- Include SprintExtension for Sprint Dependency resolution -->
+        <dependency>
+            <groupId>com.github.sbrannen</groupId>
+            <artifactId>spring-test-junit5</artifactId>
+            <version>1.0.0.M6</version>
+            <scope>test</scope>
+        </dependency>
+
+
+        <!-- JUnit5 -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>5.0.0-M6</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- /JUnit5 -->
+
+        <!-- Only required to run tests in an IntelliJ IDEA that bundles an older version -->
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-launcher</artifactId>
+            <version>1.0.0-M6</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>5.0.0-M6</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.vintage</groupId>
+            <artifactId>junit-vintage-engine</artifactId>
+            <version>4.12.0-M6</version>
+            <scope>test</scope>
+        </dependency>
+
 
     </dependencies>
     <build>
