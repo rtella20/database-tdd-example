@@ -35,7 +35,7 @@ public class Keys {
     // UNIQUE and PRIMARY KEY definitions
     // -------------------------------------------------------------------------
 
-    public static final UniqueKey<TestsRecord> TESTS_PKEY = UniqueKeys0.TESTS_PKEY;
+    public static final UniqueKey<TestsRecord> PK_TESTS = UniqueKeys0.PK_TESTS;
 
     // -------------------------------------------------------------------------
     // FOREIGN KEY definitions
@@ -47,6 +47,6 @@ public class Keys {
     // -------------------------------------------------------------------------
 
     private static class UniqueKeys0 extends AbstractKeys {
-        public static final UniqueKey<TestsRecord> TESTS_PKEY = createUniqueKey(Tests.TESTS, "tests_pkey", Tests.TESTS.ID);
+        public static final UniqueKey<TestsRecord> PK_TESTS = createUniqueKey(Tests.TESTS, "pk_tests", Tests.TESTS.ID);
     }
 }

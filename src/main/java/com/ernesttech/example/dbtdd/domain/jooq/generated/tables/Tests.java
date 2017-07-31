@@ -29,7 +29,7 @@ import java.util.UUID;
 @SuppressWarnings({"all", "unchecked", "rawtypes"})
 public class Tests extends TableImpl<TestsRecord> {
 
-    private static final long serialVersionUID = -640334866;
+    private static final long serialVersionUID = 1415497673;
 
     /**
      * The reference instance of <code>public.tests</code>
@@ -70,6 +70,11 @@ public class Tests extends TableImpl<TestsRecord> {
     public final TableField<TestsRecord, String> FAILURE_MESSAGE = createField("failure_message", org.jooq.impl.SQLDataType.CLOB, this, "");
 
     /**
+     * The column <code>public.tests.test_set</code>.
+     */
+    public final TableField<TestsRecord, String> TEST_SET = createField("test_set", org.jooq.impl.SQLDataType.CLOB, this, "");
+
+    /**
      * Create a <code>public.tests</code> table reference
      */
     public Tests() {
@@ -104,7 +109,7 @@ public class Tests extends TableImpl<TestsRecord> {
      */
     @Override
     public UniqueKey<TestsRecord> getPrimaryKey() {
-        return Keys.TESTS_PKEY;
+        return Keys.PK_TESTS;
     }
 
     /**
@@ -112,7 +117,7 @@ public class Tests extends TableImpl<TestsRecord> {
      */
     @Override
     public List<UniqueKey<TestsRecord>> getKeys() {
-        return Arrays.<UniqueKey<TestsRecord>>asList(Keys.TESTS_PKEY);
+        return Arrays.<UniqueKey<TestsRecord>>asList(Keys.PK_TESTS);
     }
 
     /**

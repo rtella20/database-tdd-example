@@ -13,17 +13,6 @@ just one simple way to develop Databases using a test-driven approach.
 
 Default username is `postgres`
 
-### Create tests table
-
-```sql
-create table tests (
- 	id uuid primary key,
- 	name text,
- 	test text,
- 	expected text,
- 	failure_message text
- );
-```
  
 ### Insert tests into table
  
@@ -51,12 +40,13 @@ Assuming we're starting with an empty database.
   * The full insert statement would look something like this
   
   ```SQL
-  INSERT INTO public.tests (id, name, test, expected, failure_message) 
+  INSERT INTO public.tests (id, name, test, expected, failure_message, test_set) 
   VALUES ('d88f5fa4-2e51-4e59-bcc3-babda149161a', 
           'app_user existance', 
           'select count(*) from pg_catalog.pg_tables WHERE schemaname = ''public'' and tablename = ''app_user'';', 
           '1', 
-          'app_user table should exist');
+          'app_user table should exist',
+          '');
   ```
 
 2. Run the tests
@@ -76,11 +66,11 @@ ERROR - Got:
  1
  
  Full Record Returned: 
- +------------------------------------+------------------+--------------------------------------------------+--------+---------------------------+
- |id                                  |name              |test                                              |expected|failure_message            |
- +------------------------------------+------------------+--------------------------------------------------+--------+---------------------------+
- |d88f5fa4-2e51-4e59-bcc3-babda149161a|app_user existance|select count(*) from pg_catalog.pg_tables WHERE...|1       |app_user table should exist|
- +------------------------------------+------------------+--------------------------------------------------+--------+---------------------------+
+ +------------------------------------+------------------+--------------------------------------------------+--------+---------------------------+--------+
+ |id                                  |name              |test                                              |expected|failure_message            |test_set|
+ +------------------------------------+------------------+--------------------------------------------------+--------+---------------------------+--------+
+ |d88f5fa4-2e51-4e59-bcc3-babda149161a|app_user existance|select count(*) from pg_catalog.pg_tables WHERE...|1       |app_user table should exist|        |
+ +------------------------------------+------------------+--------------------------------------------------+--------+---------------------------+--------+
 ```
 
 5. Now make it pass!

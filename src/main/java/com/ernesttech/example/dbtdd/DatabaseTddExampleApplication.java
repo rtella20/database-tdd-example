@@ -9,10 +9,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @EnableAutoConfiguration
 public class DatabaseTddExampleApplication {
 
-
     public static void main(String[] args) {
         SpringApplication.run(DatabaseTddExampleApplication.class, args);
     }
-
 
 }
